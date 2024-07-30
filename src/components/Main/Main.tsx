@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback } from 'react';
+import React, {useEffect, useState, useCallback, useRef } from 'react';
 import type {CountryInfo} from "./types";
 import {URL, DEBOUNCE_DELAY} from "./constants";
 import { debounce } from "lodash"
@@ -11,6 +11,8 @@ export const Main = () => {
   const [value, setValue] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const fetchCountries = async (searchValue: string) => {
     setIsLoading(true);
@@ -34,6 +36,7 @@ export const Main = () => {
   );
 
   useEffect(() => {
+    window.addEventListener("click", handleOutsideClick);
     if (value.length > 0) {
       debouncedFetchCountries(value);
     } else {
@@ -58,9 +61,14 @@ export const Main = () => {
     setVisible(true);
   }
 
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+      setVisible(false);
+    }
+  }
 
   return (
-    <div className="app">
+    <div className="app" ref={containerRef}>
       <SearchInput value={value} onChange={ChangeHandler} onClick={inputClickHandler} />
       {isLoading ? (
         <p>Loading...</p>
