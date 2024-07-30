@@ -1,12 +1,12 @@
 import React from 'react';
 import {CountriesListProps} from "./types";
-import {StyledCountriesList} from "./styles";
+import {StyledCountriesList, StyledCountriesItem} from "./styles";
 
 export const CountriesList = ({ countries }: CountriesListProps) => {
   return (
     <StyledCountriesList>
       {countries.map((country) => (
-        <li key={country.name}>{country.name}</li>
+        <StyledCountriesItem key={country.name}>{country.name}</StyledCountriesItem>
       ))}
     </StyledCountriesList>
   );
