@@ -5,6 +5,7 @@ import { debounce } from "lodash"
 import {SearchInput} from "../SearchInput";
 import {CountriesList} from "../CountriesList";
 import {Autocomplete} from "../Autocomplete";
+import axios from "axios";
 
 export const Main = () => {
   const [countries, setCountries] = useState<CountryInfo[]>([]);
@@ -17,8 +18,8 @@ export const Main = () => {
   const fetchCountries = async (searchValue: string) => {
     setIsLoading(true);
     try {
-      const response = await fetch(URL);
-      const data = await response.json();
+      const response = await axios.get<CountryInfo[]>(URL);
+      const data = response.data;
       const countriesArray = Object.values(data) as CountryInfo[];
       setCountries(countriesArray);
     } catch (error) {
@@ -36,7 +37,7 @@ export const Main = () => {
   );
 
   useEffect(() => {
-    window.addEventListener("click", handleOutsideClick);
+    window.addEventListener("mousedown", handleOutsideClick);
     if (value.length > 0) {
       debouncedFetchCountries(value);
     } else {
@@ -44,6 +45,7 @@ export const Main = () => {
     }
 
     return () => {
+      window.removeEventListener("mousedown", handleOutsideClick);
       debouncedFetchCountries.cancel();
     };
 
@@ -68,7 +70,7 @@ export const Main = () => {
   }
 
   return (
-    <div className="app" ref={containerRef}>
+    <div className="app">
       <SearchInput value={value} onChange={ChangeHandler} onClick={inputClickHandler} />
       {isLoading ? (
         <p>Loading...</p>
@@ -82,7 +84,9 @@ export const Main = () => {
             isVisible={visible}
             isLoading={isLoading}
           />
-          <CountriesList countries={filteredCountries} />
+          <div ref={containerRef}>
+            <CountriesList countries={filteredCountries} />
+          </div>
         </>
       )}
     </div>
