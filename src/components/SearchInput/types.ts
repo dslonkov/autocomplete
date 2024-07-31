@@ -5,4 +5,5 @@ export type SearchInputProps = {
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
+  children?: React.ReactNode;
 }

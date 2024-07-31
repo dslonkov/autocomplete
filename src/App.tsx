@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import { Main } from "./components/Main";
 
 function App() {
+  const [value, setValue] = useState<string>('');
 
   return (
     <div className="app">
-      <Main />
+      <Main value={value} setValue={setValue} />
     </div>
   );
 }

@@ -1,3 +1,10 @@
+import React from "react";
+
+export type MainProps = {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export type CountryInfo = {
   name?: string;
   id?: number;
@@ -7,4 +14,8 @@ export type CountryInfo = {
   capital?: string;
   currency?: string;
   flag?: string;
+};
+
+export type DebouncedFunction<T extends (...args: any[]) => unknown> = {
+  (...args: Parameters<T>): void;
 };

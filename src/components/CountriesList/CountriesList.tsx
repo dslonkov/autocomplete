@@ -1,13 +1,13 @@
 import React from 'react';
 import {CountriesListProps} from "./types";
-import {StyledCountriesList, StyledCountriesItem} from "./styles";
+import './styles.css';
 
 export const CountriesList = ({ countries }: CountriesListProps) => {
   return (
-    <StyledCountriesList>
+    <ul className='countriesList'>
       {countries.map((country) => (
-        <StyledCountriesItem key={country.name}>{country.name}</StyledCountriesItem>
+        <li className='coutriesItem' key={country.name}>{country.name}</li>
       ))}
-    </StyledCountriesList>
+    </ul>
   );
 };

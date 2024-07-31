@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyledSearchInput } from './styles';
 import {SearchInputProps} from "./types";
+import './style.css'
 
-export const SearchInput = ({ value, onChange, onClick }: SearchInputProps) => {
+export const SearchInput = ({ value, onChange, children, onClick }: SearchInputProps) => {
 
   return (
-    <form>
-      <StyledSearchInput value={value} onChange={onChange} onClick={onClick} placeholder="Search" />
-    </form>
+    <label>
+      <input className='input' value={value} onChange={onChange} onClick={onClick} placeholder="Search" type='text' />
+      {children}
+    </label>
   )
 }
