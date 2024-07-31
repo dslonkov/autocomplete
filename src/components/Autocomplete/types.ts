@@ -8,4 +8,5 @@ export type AutocompleteProps = {
   isLoading: boolean;
   setValue: React.Dispatch<React.SetStateAction<string>>;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  onClick?: (event: React.MouseEvent<HTMLLIElement>) => void;
 }
